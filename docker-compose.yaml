@@ -1,0 +1,40 @@
+services:
+  postgres_dev:
+    image: postgres:17.4
+    container_name: postgres_dev_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpassword
+      POSTGRES_DB: testdb
+    ports:
+      - "5432:5432"
+    volumes:
+      # Add here migrations that are needed as a pre-requisite. For example, DB functions
+      - postgres_dev_data:/var/lib/postgresql/data
+      # - ./migrations/20250319040520_create_uuidv7_id_generator.sql:/docker-entrypoint-initdb.d/20250319040520_create_uuidv7_id_generator.sql
+    networks:
+      - postgres_dev_network
+
+  postgres_test:
+    image: postgres:17.4
+    container_name: postgres_test_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpassword
+      POSTGRES_DB: testdb
+    ports:
+      - "6231:5432"
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+    networks:
+      - postgres_test_network
+
+volumes:
+  postgres_dev_data:
+  postgres_test_data:
+
+networks:
+  postgres_dev_network:
+  postgres_test_network:
