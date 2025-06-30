@@ -9,6 +9,7 @@ CREATE TABLE public.expense (
   subcategory_id UUID REFERENCES subcategory(id),
   installements_expense_id UUID REFERENCES installements_expense(id),
   recurrent_expense_id UUID REFERENCES recurrent_expense(id),
+  date TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   created_date TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   CONSTRAINT check_ammounts CHECK (
