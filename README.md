@@ -3,7 +3,11 @@
 First, we need to spin up a Postgres instance with Docker that can be used as Atlas dev DB
 
 ```bash
+# To initialize dev environment
 docker compose up postgres_dev -d
+
+# To clean dev environment
+docker compose donw -v
 ```
 
 Then you can normally develop and:
@@ -47,3 +51,11 @@ There is currently no automation to do this. Just run.
 ```bash
 atlas migrate apply --env prod --revisions-schema public
 ```
+
+### Dealing with Atlas pro features
+
+Since some features of Atlas such as functions, procedures and views are paid features, we need to do workarounds to make this work.
+
+For those features, the migration has to be created manually in `migrations`.
+
+There are cases that functions or procedures might be needed as a pre-requisite since they are used in other tables that are calculated by Atlas. In this case, those migrations need to be mounted manually in the Docker container so they are available beforehad. Take a look at `docker-compose.yaml`.

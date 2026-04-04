@@ -12,7 +12,7 @@ services:
     volumes:
       # Add here migrations that are needed as a pre-requisite. For example, DB functions
       - postgres_dev_data:/var/lib/postgresql/data
-      # - ./migrations/20250319040520_create_uuidv7_id_generator.sql:/docker-entrypoint-initdb.d/20250319040520_create_uuidv7_id_generator.sql
+      - ./migrations/20250319040520_create_uuidv7_id_generator.sql:/docker-entrypoint-initdb.d/20250319040520_create_uuidv7_id_generator.sql
     networks:
       - postgres_dev_network
 
